@@ -53,7 +53,7 @@ defmodule Phoenix.Jiffy.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      { :jiffy, github: "davisp/jiffy" },
+      { :jiffy, "~> 0.14" },
       { :ex_doc, "~> 0.14", optional: true, only: [ :dev, :test ] },
       { :ecto, "~> 2.0", optional: true, only: [ :dev, :test ] }
     ]
