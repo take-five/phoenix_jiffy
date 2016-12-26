@@ -29,3 +29,21 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
     config :phoenix, :format_encoders,
       json: Phoenix.Jiffy
     ```
+
+  4. Change your `endpoint.ex`:
+  
+    ```elixir
+    defmodule MyApp.Endpoint do
+      use Phoenix.Endpoint, otp_app: :my_app
+    
+      ...
+    
+      plug Plug.Parsers,
+        parsers: [:urlencoded, :multipart, :json],
+        pass: ["*/*"],
+        json_decoder: Phoenix.Jiffy
+        
+      ...
+      
+    end
+    ```
