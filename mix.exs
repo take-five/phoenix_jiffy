@@ -2,7 +2,7 @@ defmodule Phoenix.Jiffy.Mixfile do
   use Mix.Project
 
   @url_docs "http://hexdocs.pm/phoenix_jiffy"
-  @url_github "https://github.com/take-five/tiny"
+  @url_github "https://github.com/take-five/phoenix_jiffy"
 
   def project do
     [app: :phoenix_jiffy,
