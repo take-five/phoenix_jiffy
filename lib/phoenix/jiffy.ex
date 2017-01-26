@@ -1,9 +1,10 @@
 defmodule Phoenix.Jiffy do
   @moduledoc """
   JSON engine replacement for Phoenix.Controller.
+  Beware: if you use Ecto models, you have to serialize
+  Ecto.Date, Ecto.Time and Ecto.DateTime manually:
 
-  Serializes Ecto.Date, Ecto.Time and Ecto.DateTime to strings
-  and then calls Jiffy encoder.
+    Ecto.DateTime.to_iso8601(model.inserted_at)
 
   ## Usage
 
@@ -17,8 +18,6 @@ defmodule Phoenix.Jiffy do
   @encode_options [:use_nil]
   @decode_options [:use_nil, :return_maps]
 
-  alias Phoenix.Jiffy.TimeEncoder
-
   @doc false
   @spec encode(any, opts :: List.t) :: {:ok, any()}
   def encode(value, opts \\ []) do
@@ -28,9 +27,7 @@ defmodule Phoenix.Jiffy do
   @doc false
   @spec encode!(any, opts :: List.t) :: any()
   def encode!(value, opts \\ []) do
-    value
-    |> TimeEncoder.encode()
-    |> @engine.encode(@encode_options ++ opts)
+    @engine.encode(value, @encode_options ++ opts)
   end
 
   @doc false
@@ -64,6 +61,6 @@ defmodule Phoenix.Jiffy do
   @doc false
   @spec encode_to_iodata!(any(), opts :: List.t) :: charlist()
   def encode_to_iodata!(value, opts \\ []) do
-    to_charlist(encode!(value, opts))
+    encode!(value, opts)
   end
 end
